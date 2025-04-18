@@ -93,7 +93,7 @@ section {
 ul.estudiantes {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
+    gap: 20px 0px;
     padding: 5px;
     list-style: none;
     margin: 0 auto;  
@@ -118,8 +118,16 @@ ul.estudiantes li {
     box-sizing: border-box;
     width: 150px; 
     height: 150px; 
+    transition: all 0.3s ease;
+    transform-origin: center center;
 }
-
+ul.estudiantes li:hover {
+    background-color: #99c5dd;
+    transform: scale(1.15) rotate(5deg);
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+    position: relative;
+}
 ul.estudiantes img {
     width: 100px;
     height: 100px;
