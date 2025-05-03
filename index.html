@@ -3,83 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ATI[UCV] 2025-1</title>
-    <link rel="icon" href="http://www.ciens.ucv.ve/portalasig2/favicon.ico">
+    <title></title>
+    <link rel="icon" href="">
+    <link rel="" href="css/style.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="resource" type="application/json" href="conf/configES.json">
+    <script type="application/json" src="conf/configES.json" id="appConfig"></script>
+    <script src="js/index.js" defer></script>
+
 </head>
 <body class="index-body">
 <header class="header-index">
     <nav class="menu-header">
         <ul>
-            <li class="titulo-principal">ATI<span>[UCV]</span> 2025-1</li>
+            <li class="titulo-principal"><span class="ucv"></span> </li>
         </ul>
         <ul>
-            <li >Hola, Carlos</li>
+            <li class="Saludo"></li>
         </ul>
         <form class="busqueda">
-            <input type="text" placeholder="Nombre...">
-            <input type="submit" value="Buscar">
+            <input class="buscarNombre" type="text" placeholder="">
+            <input class="botonBuscar" type="submit" value="">
         </form>
     </nav>
 </header>
 
 <section class="section-index">
     <ul class="estudiantes">
-        <li>
-            <a href="29551025/perfil.html" style="text-decoration: none; color: inherit; display: block;">
-                <img id="foto-carlos" src="29551025/29551025Grande.jpg" alt="Foto Carlos">
-                <div>Carlos Monsalve</div>
-            </a>
-        </li>
-        <li>
-            <img src="dummies/dummy6/dummy.jpg" alt="Avatar 6">
-            <div>Juan Antonio Perez</div>
-        </li>
-        <li>
-            <img src="dummies/dummy3/dummy.jpg" alt="Avatar 3">
-            <div>Maritza Rodríguez</div>
-        </li>
-        <li>
-            <img src="dummies/dummy1/dummy.jpg" alt="Avatar 1">
-            <div>Emilia Casado</div>
-        </li>
-        <li>
-            <img src="dummies/dummy4/dummy.jpg" alt="Avatar 4">
-            <div>Enrique Colina</div>
-        </li>
-        <li>
-            <img src="dummies/dummy2/dummy.jpg" alt="Avatar 2">
-            <div>María Elena Pinto</div>
-        </li>
-        <li>
-            <img src="dummies/dummy5/dummy.jpg" alt="Avatar 5">
-            <div>Ronald Gutierrez</div>
-        </li>
-        <li>
-            <img src="dummies/dummy6/dummy.jpg" alt="Avatar 6">
-            <div>Juan Antonio Perez</div>
-        </li>
-        <li>
-            <img src="dummies/dummy3/dummy.jpg" alt="Avatar 3">
-            <div>Maritza Rodríguez</div>
-        </li>
-        <li>
-            <img src="dummies/dummy1/dummy.jpg" alt="Avatar 1">
-            <div>Emilia Casado</div>
-        </li>
-        <li>
-            <img src="dummies/dummy4/dummy.jpg" alt="Avatar 4">
-            <div>Enrique Colina</div>
-        </li>
-        <li>
-            <img src="dummies/dummy2/dummy.jpg" alt="Avatar 2">
-            <div>María Elena Pinto</div>
-        </li>
+        <!-- Lista vacía -->
     </ul>
+    <script>
+        // Carga el JSON y muestra su contenido en la consola
+        fetch('conf/configES.json')
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Error al cargar el JSON');
+            }
+            return response.json();
+          })
+          .then(data => {
+            console.log("JSON cargado:", data);
+          })
+          .catch(error => {
+            console.error("Error:", error);
+          });
+      </script>
+
 </section>
 
 <footer class="footer-index">
-    Copyright © 2025 Escuela de computación - ATI. Todos los derechos reservados
 </footer>
 
 </body>
