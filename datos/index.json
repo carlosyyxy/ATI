@@ -1,7 +1,7 @@
-const perfiles = [
+[
     {
         "ci": "29551025",
-        "imagen": "29551025\/29551025.jpg",
+        "imagen": "29551025\/29551025Grande.jpg",
         "nombre": "Carlos Monsalve"
     },
     {

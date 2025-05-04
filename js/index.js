@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 });
 
-function renderizarConfig(config) {
+async function renderizarConfig(config) {
 
     document.querySelector('.titulo-principal').innerHTML = `${config.sitio[0]}<span class="ucv">${config.sitio[1]}</span> ${config.sitio[2]}`;
  
@@ -20,14 +20,31 @@ function renderizarConfig(config) {
     document.querySelector('.busqueda .buscarNombre').placeholder = config.nombre;
     document.querySelector('.busqueda .botonBuscar').value = config.buscar;
 
-
-
-
-    // Llenar el footer
-    document.querySelector('.footer-index').textContent = config.copyRight;
-
+        // Cargar lista de estudiantes desde datos/index.json
+        try {
+            const response = await fetch('../datos/index.json');
+            if (!response.ok) throw new Error('Error al cargar estudiantes');
+            const estudiantes = await response.json();
+            
+            const listaEstudiantes = document.querySelector('.section-index .estudiantes');
+            listaEstudiantes.innerHTML = ''; // Limpiar lista existente
     
+            // Generar HTML para cada estudiante
+            estudiantes.forEach(estudiante => {
+                const estudianteHTML = `
+                    <li>
+                        <img src="${estudiante.imagen}" alt="Foto ${estudiante.nombre}">
+                        <div>${estudiante.nombre}</div>
+                    </li>
+                `;
+                listaEstudiantes.insertAdjacentHTML('beforeend', estudianteHTML);
+            });
+    
+        } catch (error) {
+            console.error('Error al cargar estudiantes:', error);
+        }
 
-    // Llenar otros elementos según sea necesario
+    document.querySelector('.footer-index').textContent = config.copyRight;
+    
     console.log('Configuración cargada:', config);
 }

@@ -131,7 +131,9 @@ ul.estudiantes li{
     height: 150px; 
     transition: all 0.3s ease;
     transform-origin: center center;
+    line-height: 1.2
 }
+
 ul.estudiantes li:hover {
     background-color: #99c5dd;
     transform: scale(1.15) rotate(5deg);
