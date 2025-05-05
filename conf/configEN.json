@@ -1,8 +1,8 @@
-const config = {
-	"sitio": ["ITA","[UCV]","2024-1"],
+{
+	"sitio": ["ITA","[UCV]","2025-1"],
 	"home": "Home",
 	"login": "Login",
-	"copyRight":"Copyright © 2024 Computer school - ITA. All rights reserved",
+	"copyRight":"Copyright © 2025 Computer school - ITA. All rights reserved",
 	"nombre":"Name",
 	"descripcion":"",
 	"color":"My favorite color is",
@@ -10,7 +10,7 @@ const config = {
 	"musica":"My favorite music style",
 	"video_juego":"Favorite video games",
 	"lenguajes":"Languages learned",
-	"email":"please send me a email to [email], if you need to contact me",
+	"email":"If you need to contact me, please send me a email to: ",
 	"buscar": "Search",
 	"saludo": "Hi"
 }

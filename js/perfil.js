@@ -1,14 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
-    fetch('../conf/configES.json')
+    const urlParams = new URLSearchParams(window.location.search);
+    const lang = (urlParams.get('lan') || 'ES').toUpperCase();
+    const validLanguages = ['ES', 'EN', 'PT'];
+    const selectedLang = validLanguages.includes(lang) ? lang : 'ES';
+
+    const ci = urlParams.get('ci');
+    
+    if (!ci) {
+        console.error('No se proporcionó CI en la URL');
+        return;
+    }
+
+    fetch(`../conf/config${selectedLang}.json`)
         .then(response => {
-            if (!response.ok) throw new Error('Error al cargar el JSON de configuración');
+            if (!response.ok) throw new Error(`Error al cargar configuración de ${selectedLang}`);
             return response.json();
         })
         .then(config => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const ci = urlParams.get('ci');
-            
-            if (!ci) throw new Error('No se proporcionó CI en la URL');            
             cargarDatos(ci)
                 .then(datos => {
                     adaptarHTML(config, datos);
