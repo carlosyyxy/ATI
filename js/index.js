@@ -33,8 +33,10 @@ async function renderizarConfig(config) {
             estudiantes.forEach(estudiante => {
                 const estudianteHTML = `
                     <li>
-                        <img src="${estudiante.imagen}" alt="Foto ${estudiante.nombre}">
-                        <div>${estudiante.nombre}</div>
+                        <a href="perfil.html?ci=${estudiante.ci}" style="text-decoration: none; color: inherit; display: block;">
+                            <img src="${estudiante.imagen}" alt="Foto ${estudiante.nombre}">
+                            <div>${estudiante.nombre}</div>
+                        </a>
                     </li>
                 `;
                 listaEstudiantes.insertAdjacentHTML('beforeend', estudianteHTML);

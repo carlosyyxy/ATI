@@ -5,12 +5,12 @@
 	"copyRight":"Copyright © 2024 Escuela de computación - ATI. Todos los derechos reservados",
 	"nombre":"Nombre",
 	"descripcion":"",
-	"color":"Mi color favorito es",
-	"libro":"Mi libro favorito es",
-	"musica":"Mi estilo de música preferida",
-	"video_juego":"Vídeo juegos favoritos",
-	"lenguajes":"Lenguajes aprendidos",
-	"email":"Si necesitan comunicarse conmigo me pueden escribir a [email]",
+	"color":"Mi color favorito es:",
+	"libro":"Mi libro favorito es:",
+	"musica":"Mi estilo de música preferida:",
+	"video_juego":"Vídeo juegos favoritos:",
+	"lenguajes":"Lenguajes aprendidos:",
+	"email":"Si necesitan comunicarse conmigo me pueden escribir a ",
 	"buscar": "Buscar",
 	"saludo": "Hola, Carlos"
 }

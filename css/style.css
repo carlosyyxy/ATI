@@ -253,7 +253,7 @@ ul.estudiantes img {
 
 
 /* Para móviles y tablets: usar imagen pequeña */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
     .foto-perfil {
         content: url('../29551025/29551025Pequena.jpg');
     }    
@@ -262,7 +262,7 @@ ul.estudiantes img {
     }
 }
 
-/* Para pantallas grandes: usar imagen grande */
+/* Para pantallas grandes: usar imagen grande 
 @media (min-width: 769px) {
     .foto-perfil {
         content: url('../29551025/29551025Grande.jpg');
@@ -270,7 +270,7 @@ ul.estudiantes img {
     #foto-carlos {
         content: url('../29551025/29551025Grande.jpg');
     }
-}
+} */
 
 
 /* 320px — 480px: Dispositivos móviles */

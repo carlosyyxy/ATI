@@ -1,10 +1,10 @@
-const perfil = {	
+{	
 	"nombre":"Carlos Monsalve",
-	"descripcion":"Soy estudiante de la escuela de computación en la UCV, me gustaría graduarme con la mención de Base de datos y disfruto mis tiempos libres viendo series y escuchando música..",
+	"descripcion":"Soy estudiante de la escuela de computación en la UCV, me gustaría graduarme con la mención de Base de datos y disfruto mis tiempos libres viendo series y escuchando música.",
 	"color": "Azul",
-	"libro": ["Los juegos del hambre"],
-	"musica": ["Synth-Pop"],
-	"video_juego": ["The Legend of Zelda: Twilight Princess."],
+	"libro": "Los juegos del hambre",
+	"musica": "Synth-Pop",
+	"video_juego": "The Legend of Zelda: Twilight Princess.",
 	"lenguajes": ["C++", "Java", "Python", "React.js"],
 	"email":"carlosemonsalveb@gmail.com",
 	"ci": "29551025",
