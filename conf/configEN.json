@@ -12,5 +12,8 @@
 	"lenguajes":"Languages learned",
 	"email":"If you need to contact me, please send me a email to: ",
 	"buscar": "Search",
-	"saludo": "Hi"
+	"error_busqueda": "There are no students who have in their name:",
+	"saludo": "Hi, Carlos",
+	"fecha_nacimiento": "Date of Birth: ",
+	"genero": "Gender: "
 }

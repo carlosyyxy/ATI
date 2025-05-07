@@ -101,6 +101,13 @@ body {
     border-bottom: 2px solid #ccc;
 }
 
+
+.no-estudiantes {
+    text-align: center;
+    color: #99c5dd;
+}
+
+
 ul.estudiantes {
     display: grid;
     grid-template-columns: repeat(4, 1fr);

@@ -1,19 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const lang = (urlParams.get('lan') || 'ES').toUpperCase();
-    const validLanguages = ['ES', 'EN', 'PT'];
-    const selectedLang = validLanguages.includes(lang) ? lang : 'ES';
+    const parametroURL = new URLSearchParams(window.location.search);
+    const lenguaje = (parametroURL.get('lan') || 'ES').toUpperCase();
+    const lenguajesValidos = ['ES', 'EN', 'PT'];
+    const lenguajeActual = lenguajesValidos.includes(lenguaje) ? lenguaje : 'ES';
 
-    const ci = urlParams.get('ci');
+    const ci = parametroURL.get('ci');
     
     if (!ci) {
         console.error('No se proporcionó CI en la URL');
         return;
     }
 
-    fetch(`../conf/config${selectedLang}.json`)
+    fetch(`../conf/config${lenguajeActual}.json`)
         .then(response => {
-            if (!response.ok) throw new Error(`Error al cargar configuración de ${selectedLang}`);
+            if (!response.ok) throw new Error(`Error al cargar configuración de ${lenguajeActual}`);
             return response.json();
         })
         .then(config => {
@@ -56,11 +56,12 @@ async function adaptarHTML(config, datos) {
     document.querySelector('#R4').textContent = datos.video_juego;
     document.querySelector('#P5').innerHTML = `<strong>${config.lenguajes}</strong>`;
     document.querySelector('#R5').innerHTML = `<strong>${datos.lenguajes.join(' ')}</strong>`;
-
+    document.querySelector('#P6').textContent = config.genero;
+    document.querySelector('#R6').textContent = datos.genero;
+    document.querySelector('#P7').textContent = config.fecha_nacimiento;
+    document.querySelector('#R7').textContent = datos.fecha_nacimiento;
     document.querySelector('.email').insertAdjacentText('afterbegin', config.email + ' '); 
     document.querySelector('.email').querySelector('.correo-link').href = `mailto:${datos.email}`;
-    document.querySelector('.email').querySelector('.correo-link').textContent = datos.email;e
+    document.querySelector('.email').querySelector('.correo-link').textContent = datos.email;
 
-    console.log('Datos del perfil:', datos);
-    console.log('Configuración:', config);
 }

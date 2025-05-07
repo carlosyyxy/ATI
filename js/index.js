@@ -1,58 +1,73 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const parametroURL = new URLSearchParams(window.location.search);
+    const lenguaje = (parametroURL.get('lan') || 'ES').toUpperCase();
+    const lenguajesValidos = ['ES', 'EN', 'PT'];
+    const lenguajeActual = lenguajesValidos.includes(lenguaje) ? lenguaje : 'ES';
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const lang = (urlParams.get('lan') || 'ES').toUpperCase();
-    const validLanguages = ['ES', 'EN', 'PT'];
-    const selectedLang = validLanguages.includes(lang) ? lang : 'ES';
-
-
-
-    fetch(`../conf/config${selectedLang}.json`)
+    fetch(`../conf/config${lenguajeActual}.json`)
         .then(response => {
-            if (!response.ok) throw new Error(`Error al cargar configuración de ${selectedLang}`);
+            if (!response.ok) throw new Error(`Error al cargar configuración de ${lenguajeActual}`);
             return response.json();
         })
         .then(config => {
-            adaptarHTML(config, selectedLang);
+            adaptarHTML(config, lenguajeActual);
         })
         .catch(error => {
             console.error('Error:', error);
         });
 });
 
-async function adaptarHTML(config, selectedLang) {
+async function adaptarHTML(config, lenguajeActual) {
+    let estudiantesData = []; 
 
     document.querySelector('.titulo-principal').innerHTML = `${config.sitio[0]}<span class="ucv">${config.sitio[1]}</span> ${config.sitio[2]}`;
- 
     document.querySelector('.header-index .Saludo').textContent = config.saludo;
     document.querySelector('.busqueda .buscarNombre').placeholder = config.nombre;
     document.querySelector('.busqueda .botonBuscar').value = config.buscar;
 
-        try {
-            const response = await fetch('../datos/index.json');
-            if (!response.ok) throw new Error('Error al cargar estudiantes');
-            const estudiantes = await response.json();
+    try {
+        const response = await fetch('../datos/index.json');
+        if (!response.ok) throw new Error('Error al cargar estudiantes');
+        estudiantesData = await response.json();
+        
+        const listaEstudiantes = document.querySelector('.section-index .estudiantes');
+        const buscarNombreInput = document.querySelector('.busqueda .buscarNombre');
+        const filtrarEstudiantes = (query) => {
+        const filtered = estudiantesData.filter(est => 
+                est.nombre.toLowerCase().includes(query.toLowerCase())
+            );
             
-            const listaEstudiantes = document.querySelector('.section-index .estudiantes');
-            listaEstudiantes.innerHTML = ''; // Limpiar lista existente
-    
-            estudiantes.forEach(estudiante => {
-                const estudianteHTML = `
-                    <li>
-                        <a href="perfil.html?lan=${selectedLang}&ci=${estudiante.ci}" style="text-decoration: none; color: inherit; display: block;">
-                            <img src="${estudiante.imagen}" alt="Foto ${estudiante.nombre}">
-                            <div>${estudiante.nombre}</div>
-                        </a>
-                    </li>
-                `;
-                listaEstudiantes.insertAdjacentHTML('beforeend', estudianteHTML);
-            });
-    
-        } catch (error) {
-            console.error('Error al cargar estudiantes:', error);
-        }
+            listaEstudiantes.innerHTML = '';
+            
+            if (filtered.length === 0) {
+                document.querySelector('.section-index').innerHTML = 
+                `<h1 class="no-estudiantes">${config.noResults || config.error_busqueda} ${query}
+                </h1>`;
+            } else {
+                filtered.forEach(estudiante => {
+                    const estudianteHTML = `
+                        <li>
+                            <a href="perfil.html?lan=${lenguajeActual}&ci=${estudiante.ci}" style="text-decoration: none; color: inherit; display: block;">
+                                <img src="${estudiante.imagen}" alt="Foto ${estudiante.nombre}">
+                                <div>${estudiante.nombre}</div>
+                            </a>
+                        </li>
+                    `;
+                    listaEstudiantes.insertAdjacentHTML('beforeend', estudianteHTML);
+                });
+            }
+        };
+
+        buscarNombreInput.addEventListener('input', (e) => {
+            const query = e.target.value.trim();
+            filtrarEstudiantes(query);
+        });
+
+        filtrarEstudiantes('');
+
+    } catch (error) {
+        console.error('Error al cargar estudiantes:', error);
+    }
 
     document.querySelector('.footer-index').textContent = config.copyRight;
-    
-    console.log('Configuración cargada:', config);
 }

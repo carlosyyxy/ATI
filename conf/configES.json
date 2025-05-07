@@ -12,5 +12,8 @@
 	"lenguajes":"Lenguajes aprendidos:",
 	"email":"Si necesitan comunicarse conmigo me pueden escribir a ",
 	"buscar": "Buscar",
-	"saludo": "Hola"
+	"error_busqueda": "No hay alumnos que tengan en su nombre:",
+	"saludo": "Hola, Carlos",
+	"fecha_nacimiento": "Fecha de Nacimiento: ",
+	"genero": "Genero: "
 }
