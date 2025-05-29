@@ -180,7 +180,7 @@ ul.estudiantes img {
     border: 1px solid black;
     padding: 10px;
     box-sizing: border-box;
-    box-shadow: 6px 6px 6px rgb(59, 59, 59);
+    outline: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .nombre {
