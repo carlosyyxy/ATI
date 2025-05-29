@@ -256,29 +256,6 @@ ul.estudiantes img {
     object-fit: cover;
 }
 
-/* Media Queries para los diferentes dispositivos  */
-
-
-/* Para móviles y tablets: usar imagen pequeña */
-/* @media (max-width: 768px) {
-    .foto-perfil {
-        content: url('../29551025/29551025Pequena.jpg');
-    }    
-    #foto-carlos {
-        content: url("../29551025/29551025Pequena.jpg");
-    }
-}
-
-/* Para pantallas grandes: usar imagen grande 
-@media (min-width: 769px) {
-    .foto-perfil {
-        content: url('../29551025/29551025Grande.jpg');
-    }
-    #foto-carlos {
-        content: url('../29551025/29551025Grande.jpg');
-    }
-} */
-
 
 /* 320px — 480px: Dispositivos móviles */
 @media (max-width: 480px) {
@@ -332,6 +309,7 @@ ul.estudiantes img {
 
     .foto img {
         width: 150px;
+        height: auto; /* Mantiene la proporción */
     }
 
     .info {

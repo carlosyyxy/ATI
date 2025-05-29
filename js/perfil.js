@@ -1,67 +1,76 @@
 document.addEventListener('DOMContentLoaded', () => {
     const parametroURL = new URLSearchParams(window.location.search);
     const lenguaje = (parametroURL.get('lan') || 'ES').toUpperCase();
-    const lenguajesValidos = ['ES', 'EN', 'PT'];
-    const lenguajeActual = lenguajesValidos.includes(lenguaje) ? lenguaje : 'ES';
-
+    const lenguajeActual = ['ES', 'EN', 'PT'].includes(lenguaje) ? lenguaje : 'ES';
     const ci = parametroURL.get('ci');
-    
+
     if (!ci) {
-        console.error('No se proporcionó CI en la URL');
+        console.error('CI no proporcionado en URL');
         return;
     }
-
-    fetch(`../conf/config${lenguajeActual}.json`)
-        .then(response => {
-            if (!response.ok) throw new Error(`Error al cargar configuración de ${lenguajeActual}`);
-            return response.json();
-        })
-        .then(config => {
-            cargarDatos(ci)
-                .then(datos => {
-                    adaptarHTML(config, datos);
-                })
-                .catch(error => {
-                    console.error('Error al cargar datos del perfil:', error);
-                });
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+    Promise.all([
+        fetch(`../conf/config${lenguajeActual}.json`),
+        fetch(`../${ci}/perfil.json`)
+    ])
+    .then(async ([configRes, perfilRes]) => {
+        if (!configRes.ok) throw new Error(`Error config (${configRes.status})`);
+        if (!perfilRes.ok) throw new Error(`Error perfil (${perfilRes.status})`);
+        
+        const [config, datos] = await Promise.all([
+            configRes.json(),
+            perfilRes.json()
+        ]);
+        
+        actualizarDOM(config, datos, ci);
+    })
+    .catch(error => console.error('Error:', error));
 });
 
-async function cargarDatos(ci) {
-    const response = await fetch(`../${ci}/perfil.json`);
-    if (!response.ok) throw new Error('Error al cargar datos del perfil');
-    return await response.json();
-}
-
-async function adaptarHTML(config, datos) {
-
-    document.querySelector('.foto-perfil').src = `${`../${datos.ci}/${datos.ci}`}.jpg`;
-    document.querySelector('.foto-perfil').onerror = () => {
-        document.querySelector('.foto-perfil').src = `${`../${datos.ci}/${datos.ci}`}.png`;
+function actualizarDOM(config, datos, ci) {
+    const domCache = {
+        fotoPerfil: document.querySelector('.foto-perfil'),
+        titulo: document.querySelector('.titulo'),
+        nombre: document.querySelector('.nombre'),
+        descripcion: document.querySelector('.descripcion'),
+        correoLink: document.querySelector('.correo-link'),
+        emailContainer: document.querySelector('.email')
     };
 
-    document.querySelector('.titulo').textContent = datos.nombre;
-    document.querySelector('.nombre').textContent = datos.nombre;
-    document.querySelector('.descripcion').textContent = datos.descripcion;
-    document.querySelector('#P1').textContent = config.color;
-    document.querySelector('#R1').textContent = datos.color;
-    document.querySelector('#P2').textContent = config.libro;
-    document.querySelector('#R2').textContent = datos.libro;
-    document.querySelector('#P3').textContent = config.musica;
-    document.querySelector('#R3').textContent = datos.musica;
-    document.querySelector('#P4').textContent = config.video_juego;
-    document.querySelector('#R4').textContent = datos.video_juego;
-    document.querySelector('#P5').innerHTML = `<strong>${config.lenguajes}</strong>`;
-    document.querySelector('#R5').innerHTML = `<strong>${datos.lenguajes.join(' ')}</strong>`;
-    document.querySelector('#P6').textContent = config.genero;
-    document.querySelector('#R6').textContent = datos.genero;
-    document.querySelector('#P7').textContent = config.fecha_nacimiento;
-    document.querySelector('#R7').textContent = datos.fecha_nacimiento;
-    document.querySelector('.email').insertAdjacentText('afterbegin', config.email + ' '); 
-    document.querySelector('.email').querySelector('.correo-link').href = `mailto:${datos.email}`;
-    document.querySelector('.email').querySelector('.correo-link').textContent = datos.email;
+    domCache.titulo.textContent = datos.nombre;
+    domCache.nombre.textContent = datos.nombre;
+    domCache.descripcion.textContent = datos.descripcion;
+    domCache.correoLink.href = `mailto:${datos.email}`;
+    domCache.correoLink.textContent = datos.email;
+    domCache.emailContainer.insertAdjacentText('afterbegin', config.email + ' ');
 
+    const campos = [
+        { id: 'P1', valor: config.color },
+        { id: 'R1', valor: datos.color },
+        { id: 'P2', valor: config.libro },
+        { id: 'R2', valor: datos.libro },
+        { id: 'P3', valor: config.musica },
+        { id: 'R3', valor: datos.musica },
+        { id: 'P4', valor: config.video_juego },
+        { id: 'R4', valor: datos.video_juego },
+        { id: 'P6', valor: config.genero },
+        { id: 'R6', valor: datos.genero },
+        { id: 'P7', valor: config.fecha_nacimiento },
+        { id: 'R7', valor: datos.fecha_nacimiento }
+    ];
+
+    campos.forEach(campo => {
+        const elemento = document.getElementById(campo.id);
+        if (elemento) elemento.textContent = campo.valor;
+    });
+
+    const p5 = document.getElementById('P5');
+    const r5 = document.getElementById('R5');
+    if (p5) p5.innerHTML = `<strong>${config.lenguajes}</strong>`;
+    if (r5) r5.innerHTML = `<strong>${datos.lenguajes.join(' ')}</strong>`;
+
+    domCache.fotoPerfil.src = `../${ci}/${ci}.jpg`;
+    domCache.fotoPerfil.onerror = function() {
+        this.onerror = null; 
+        this.src = `../${ci}/${ci}.png`;
+    };
 }
