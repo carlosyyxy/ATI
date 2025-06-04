@@ -47,7 +47,7 @@ async function adaptarHTML(config, lenguajeActual) {
                 filtered.forEach(estudiante => {
                     const estudianteHTML = `
                         <li>
-                            <a href="perfil.html?lan=${lenguajeActual}&ci=${estudiante.ci}" style="text-decoration: none; color: inherit; display: block;">
+                            <a href="perfil/perfil.html?lan=${lenguajeActual}&ci=${estudiante.ci}" style="text-decoration: none; color: inherit; display: block;">
                                 <img src="${estudiante.imagen}" alt="Foto ${estudiante.nombre}">
                                 <div>${estudiante.nombre}</div>
                             </a>
