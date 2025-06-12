@@ -2,7 +2,6 @@ from flask import Flask, request, jsonify, render_template_string, send_from_dir
 import os
 import json
 
-# Configuración básica
 PORT = 8080
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -114,7 +113,6 @@ def generate_index_html(config, estudiantes, lan):
 """
 
 def generate_perfil_html(config, datos, ci):
-    # Generar campos de la tabla
     campos = [
         {'id': 'P1', 'valor': config['color']},
         {'id': 'R1', 'valor': datos['color']},
@@ -130,7 +128,6 @@ def generate_perfil_html(config, datos, ci):
         {'id': 'R7', 'valor': datos['fecha_nacimiento']}
     ]
     
-    # Generar filas de la tabla
     table_rows = []
     for i in range(0, len(campos), 2):
         p = campos[i]
@@ -142,7 +139,6 @@ def generate_perfil_html(config, datos, ci):
             </tr>
         """)
     
-    # Añadir fila de lenguajes
     table_rows.append(f"""
         <tr>
             <td id="P5"><strong>{config['lenguajes']}</strong></td>
@@ -150,7 +146,6 @@ def generate_perfil_html(config, datos, ci):
         </tr>
     """)
     
-    # Generar HTML completo
     return f"""
 <!DOCTYPE html>
 <html lang="es">
